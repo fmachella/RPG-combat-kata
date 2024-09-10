@@ -1,11 +1,14 @@
 package tech.qmates;
 
 public class Character {
-    public Character(Health health) {
+    private Health health;
 
+    public Character(Health health) {
+        this.health = health;
     }
 
     public Health deal(Character defender, Damage damage) {
-        return null;
+//        return defender.health.damage(damage);
+        throw new RuntimeException("Not implemented yet");
     }
 }
