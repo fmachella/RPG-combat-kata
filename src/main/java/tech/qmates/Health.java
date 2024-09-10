@@ -31,7 +31,7 @@ public class Health {
 
     @Override
     public String toString() {
-        return "Life{" +
+        return "Health{" +
                 "hitPoints=" + hitPoints +
                 '}';
     }
