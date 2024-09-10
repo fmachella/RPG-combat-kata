@@ -3,6 +3,7 @@ package tech.qmates;
 import tech.qmates.exceptions.InvalidAction;
 
 public class Character {
+    private final DamageDealer damageDealer;
     private final Level level;
     private Health health;
 
@@ -15,8 +16,13 @@ public class Character {
     }
 
     public Character(Health health, Level level) {
+        this(health,level,new DamageDealer());
+    }
+
+    public Character(Health health, Level level, DamageDealer damageDealer) {
         this.level=level;
         this.health = health;
+        this.damageDealer = damageDealer;
     }
 
     public Health heals(Character wounded, Heal heal) {
@@ -27,7 +33,6 @@ public class Character {
         if (this.equals(target)) {
             throw new InvalidAction();
         }
-        DamageDealer damageDealer = new DamageDealer();
         Damage realDamage = damageDealer.calculateDamage(this.level,target.level, damage);
         return target.take(realDamage);
     }

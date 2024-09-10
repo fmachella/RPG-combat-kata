@@ -1,6 +1,6 @@
 package tech.qmates;
 
-class DamageDealer {
+public class DamageDealer {
 
     public Damage calculateDamage(Level myself, Level target, Damage damage) {
         Damage realDamage = damage;
