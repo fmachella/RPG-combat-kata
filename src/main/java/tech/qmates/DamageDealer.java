@@ -5,14 +5,13 @@ package tech.qmates;
 public class DamageDealer {
 
     public Damage calculateDamage(Level myself, Level target, Damage damage) {
-        Damage realDamage = damage;
         if (target.isOverpowerFor(myself)) {
-            realDamage = damage.halven();
+            return damage.halven();
         }
         if (target.isWeakerFor(myself)){
-            realDamage=damage.doubleIt();
+            return damage.doubleIt();
         }
-        return realDamage;
+        return damage;
     }
 
 }
