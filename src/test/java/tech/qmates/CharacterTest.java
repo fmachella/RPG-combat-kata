@@ -38,4 +38,5 @@ public class CharacterTest {
 
         assertEquals(defender.isDead(),true);
     }
+
 }

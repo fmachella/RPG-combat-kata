@@ -1,10 +1,16 @@
 package tech.qmates;
 
 public class Character {
+    private final Level level;
     private Health health;
 
     public Character(Health health) {
+        this.level=new Level(1);
         this.health = health;
+    }
+
+    public Character() {
+        this(new Health(1000));
     }
 
     public Health deal(Character defender, Damage damage) {
@@ -24,5 +30,8 @@ public class Character {
 
     public boolean isDead() {
         return this.health.equals(Health.ZERO);
+    }
+
+    private record Level(int level) {
     }
 }
