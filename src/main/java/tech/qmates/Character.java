@@ -10,7 +10,7 @@ public class Character {
     }
 
     public Character() {
-        this(new Health(1000));
+        this(Health.FULL);
     }
 
     public Health heals(Character wounded, Heal heal) {
@@ -38,9 +38,11 @@ public class Character {
     private Health take(Heal heal) {
         if (this.isDead())
             return Health.ZERO;
-        Health left = this.health.heal(heal);
-        this.health=left;
-        return left;
+        if (this.health.equals(Health.FULL)){
+            return this.health;
+        }
+        this.health= this.health.heal(heal);
+        return this.health;
     }
 
 }

@@ -2,6 +2,7 @@ package tech.qmates;
 
 public class Health {
     public static final Health ZERO = new Health(0);
+    public static final Health FULL = new Health(1000);
     private final int hitPoints;
 
     public Health(int hitPoints) {

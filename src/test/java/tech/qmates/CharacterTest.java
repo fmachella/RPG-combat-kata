@@ -56,4 +56,15 @@ public class CharacterTest {
         assertEquals(new Health(0),result);
         assertTrue(dead.isDead());
     }
+
+    @Test
+    void cannot_heal_fulfilled_characters() {
+        Character healer = new Character();
+        Character fullfilled = new Character();
+
+        Health full = healer.heals(fullfilled,new Heal(33));
+
+        assertEquals(Health.FULL,full);
+        assertFalse(fullfilled.isDead());
+    }
 }
