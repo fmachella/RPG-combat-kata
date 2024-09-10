@@ -43,12 +43,11 @@ public class Character {
 
     private Health take(Damage damage) {
         Health remaining = this.health.damage(damage);
+        this.health=remaining;
         if (remaining.isAKillingBlow()){
             this.health=Health.ZERO;
-            return this.health;
         }
-        this.health=remaining;
-        return remaining;
+        return this.health;
     }
 
     private Health take(Heal heal) {
