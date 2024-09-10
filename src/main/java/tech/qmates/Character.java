@@ -13,9 +13,16 @@ public class Character {
         this(new Health(1000));
     }
 
-    public Health deal(Character defender, Damage damage) {
-        Health left = defender.take(damage);
-        return left;
+    public Health heals(Character wounded, Heal heal) {
+        return wounded.take(heal);
+    }
+
+    public Health hit(Character defender, Damage damage) {
+        return defender.take(damage);
+    }
+
+    public boolean isDead() {
+        return this.health.equals(Health.ZERO);
     }
 
     private Health take(Damage damage) {
@@ -28,10 +35,12 @@ public class Character {
         return remaining;
     }
 
-    public boolean isDead() {
-        return this.health.equals(Health.ZERO);
+    private Health take(Heal heal) {
+        Health left = this.health.heal(heal);
+        this.health=left;
+        return left;
     }
 
-    private record Level(int level) {
-    }
+}
+record Level(int level) {
 }

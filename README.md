@@ -6,11 +6,11 @@
 
 ## Requirements
 
-- [ ] Characters can be created
-- [ ] New characters have 1000 Health
-- [ ] New characters start from level 1
-- [ ] Characters can be Alive or Dead
-- [ ] New characters are Alive
+- [X] Characters can be created
+- [X] New characters have 1000 Health
+- [X] New characters start from level 1
+- [X] Characters can be Alive or Dead
+- [X] New characters are Alive
 - [X] Characters can Deal Damage to Characters
 - [X] Damage is subtracted from Health
 - [X] When damage received exceeds current Health, Health becomes 0 and the character is now Dead

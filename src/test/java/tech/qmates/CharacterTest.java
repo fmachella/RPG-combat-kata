@@ -1,9 +1,8 @@
 package tech.qmates;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CharacterTest {
     @Test
@@ -11,10 +10,10 @@ public class CharacterTest {
         Character attacker = new Character(new Health(100));
         Character defender = new Character(new Health(100));
 
-        Health remainingHealth = attacker.deal(defender,new Damage(5));
+        Health remainingHealth = attacker.hit(defender,new Damage(5));
 
-        assertEquals(defender.isDead(),false);
-        assertEquals(remainingHealth,new Health(95));
+        assertFalse(defender.isDead());
+        assertEquals(new Health(95),remainingHealth);
     }
 
     @Test
@@ -22,11 +21,11 @@ public class CharacterTest {
         Character attacker = new Character(new Health(100));
         Character defender = new Character(new Health(100));
 
-                                    attacker.deal(defender,new Damage(5));
-        Health remainingHealth =    attacker.deal(defender,new Damage(45));
+                                    attacker.hit(defender,new Damage(5));
+        Health remainingHealth =    attacker.hit(defender,new Damage(45));
 
-        assertEquals(defender.isDead(),false);
-        assertEquals(remainingHealth,new Health(50));
+        assertFalse(defender.isDead());
+        assertEquals(new Health(50),remainingHealth);
     }
 
     @Test
@@ -34,9 +33,18 @@ public class CharacterTest {
         Character attacker = new Character(new Health(100));
         Character defender = new Character(new Health(20));
 
-        attacker.deal(defender,new Damage(50));
+        attacker.hit(defender,new Damage(50));
 
-        assertEquals(defender.isDead(),true);
+        assertTrue(defender.isDead());
     }
 
+    @Test
+    void healer() {
+        Character healer = new Character();
+        Character wounded = new Character(new Health(17));
+
+        Health result = healer.heals(wounded,new Heal(33));
+
+        assertEquals(new Health(50),result);
+    }
 }
