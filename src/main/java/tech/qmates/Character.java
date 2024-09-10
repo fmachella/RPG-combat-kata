@@ -8,7 +8,6 @@ public class Character {
     }
 
     public Health deal(Character defender, Damage damage) {
-//        return defender.health.damage(damage);
-        throw new RuntimeException("Not implemented yet");
+        return defender.health.damage(damage);
     }
 }
