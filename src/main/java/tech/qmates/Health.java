@@ -1,27 +1,27 @@
 package tech.qmates;
 
-public class Life {
+public class Health {
     private final int hitPoints;
 
-    public Life(int hitPoints) {
+    public Health(int hitPoints) {
         this.hitPoints = hitPoints;
     }
 
-    public Life damage(int hitPoints) {
-        return new Life(this.hitPoints - hitPoints);
+    public Health damage(int hitPoints) {
+        return new Health(this.hitPoints - hitPoints);
     }
 
-    public Life heal(int hitPoints) {
-        return new Life(this.hitPoints + hitPoints);
+    public Health heal(int hitPoints) {
+        return new Health(this.hitPoints + hitPoints);
     }
 
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Life)) return false;
+        if (!(o instanceof Health)) return false;
 
-        Life life = (Life) o;
-        return hitPoints == life.hitPoints;
+        Health health = (Health) o;
+        return hitPoints == health.hitPoints;
     }
 
     @Override

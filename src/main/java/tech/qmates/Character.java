@@ -1,11 +1,11 @@
 package tech.qmates;
 
 public class Character {
-    public Character(Life life) {
+    public Character(Health health) {
 
     }
 
-    public Life hit(Damage damage) {
+    public Health deal(Character defender, Damage damage) {
         return null;
     }
 }
