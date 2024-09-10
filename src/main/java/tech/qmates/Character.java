@@ -26,7 +26,7 @@ public class Character {
     }
 
     public Health heals(Character wounded, Heal heal) {
-        if (this.isDead())
+        if (wounded.isDead())
             throw new InvalidAction("You can't heal exploded chickens");
         return wounded.take(heal);
     }
