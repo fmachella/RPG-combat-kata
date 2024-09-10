@@ -85,4 +85,14 @@ public class CharacterTest {
         assertEquals(new Health(10),hit);
         assertFalse(defender.isDead());
     }
+
+    @Test
+    void five_level_weaker_character_makes_too_few_damages() {
+        Character attacker = new Character();
+        Character defender = new Character(new Health(20), new Level(6));
+
+        Health hit = attacker.hit(defender, new Damage(1));
+        assertEquals(new Health(20),hit);
+        assertFalse(defender.isDead());
+    }
 }
