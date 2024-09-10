@@ -8,6 +8,21 @@ public class Character {
     }
 
     public Health deal(Character defender, Damage damage) {
-        return defender.health.damage(damage);
+        Health left = defender.take(damage);
+        return left;
+    }
+
+    private Health take(Damage damage) {
+        Health remaining = this.health.damage(damage);
+        if (remaining.isAKillingBlow()){
+            this.health=Health.ZERO;
+            return this.health;
+        }
+        this.health=remaining;
+        return remaining;
+    }
+
+    public boolean isDead() {
+        return this.health.equals(Health.ZERO);
     }
 }

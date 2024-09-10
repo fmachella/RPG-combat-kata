@@ -1,6 +1,7 @@
 package tech.qmates;
 
 public class Health {
+    public static final Health ZERO = new Health(0);
     private final int hitPoints;
 
     public Health(int hitPoints) {
@@ -13,6 +14,10 @@ public class Health {
 
     public Health heal(Heal hitPoints) {
         return new Health(this.hitPoints + hitPoints.heals());
+    }
+
+    public boolean isAKillingBlow() {
+        return this.hitPoints <= 0;
     }
 
     @Override
