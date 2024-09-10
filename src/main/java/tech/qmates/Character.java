@@ -31,7 +31,7 @@ public class Character {
 
     public Health hit(Character target, Damage damage) {
         if (this.equals(target)) {
-            throw new InvalidAction();
+            throw new InvalidAction("You can't suicide. Are you fag?");
         }
         Damage realDamage = damageDealer.calculateDamage(this.level,target.level, damage);
         return target.take(realDamage);
@@ -52,7 +52,7 @@ public class Character {
 
     private Health take(Heal heal) {
         if (this.isDead())
-            return Health.ZERO;
+            throw new InvalidAction("You can't heal exploded chickens");
         if (this.health.equals(Health.FULL)){
             return this.health;
         }

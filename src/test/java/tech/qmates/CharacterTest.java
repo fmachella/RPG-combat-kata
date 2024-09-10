@@ -53,8 +53,12 @@ public class CharacterTest {
     void dead_player_can_not_be_healed() {
         Character healer = new Character();
         Character dead = new Character(Health.ZERO);
-        Health result = healer.heals(dead,new Heal(33));
-        assertEquals(new Health(0),result);
+
+        Exception exception = assertThrows(InvalidAction.class,
+                () -> healer.heals(dead,new Heal(33)),
+                "You can't heal exploded chickens");
+
+        assertEquals("You can't heal exploded chickens", exception.getMessage());
         assertTrue(dead.isDead());
     }
 
