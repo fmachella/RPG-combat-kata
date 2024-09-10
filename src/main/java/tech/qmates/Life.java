@@ -28,4 +28,11 @@ public class Life {
     public int hashCode() {
         return hitPoints;
     }
+
+    @Override
+    public String toString() {
+        return "Life{" +
+                "hitPoints=" + hitPoints +
+                '}';
+    }
 }
