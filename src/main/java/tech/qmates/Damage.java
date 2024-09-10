@@ -1,6 +1,9 @@
 package tech.qmates;
 
-public class Damage {
-    public Damage(int hits) {
-    }
+public record Damage(int damages) {
+//    private final int hits;
+//
+//    public Damage(int hits) {
+//        this.hits = hits;
+//    }
 }

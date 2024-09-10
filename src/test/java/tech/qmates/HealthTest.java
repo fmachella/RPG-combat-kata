@@ -9,14 +9,14 @@ class HealthTest {
     @Test
     void life_damage_decrease() {
         Health health = new Health(20);
-        Health remaining= health.damage(10);
+        Health remaining= health.damage(new Damage(10));
         assertEquals(remaining,new Health(10));
     }
 
     @Test
     void life_heal_increase() {
         Health health = new Health(20);
-        Health remaining= health.heal(10);
+        Health remaining= health.heal(new Heal(10));
         assertEquals(remaining,new Health(30));
     }
 }

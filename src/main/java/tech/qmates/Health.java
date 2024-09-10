@@ -7,12 +7,12 @@ public class Health {
         this.hitPoints = hitPoints;
     }
 
-    public Health damage(int hitPoints) {
-        return new Health(this.hitPoints - hitPoints);
+    public Health damage(Damage hitPoints) {
+        return new Health(this.hitPoints - hitPoints.damages());
     }
 
-    public Health heal(int hitPoints) {
-        return new Health(this.hitPoints + hitPoints);
+    public Health heal(Heal hitPoints) {
+        return new Health(this.hitPoints + hitPoints.heals());
     }
 
     @Override
