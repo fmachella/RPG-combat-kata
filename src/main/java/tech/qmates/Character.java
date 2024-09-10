@@ -24,13 +24,12 @@ public class Character {
     }
 
     public Health hit(Character defender, Damage damage) {
-        if (defender.level.diff(this.level) >= 5) {
-            return defender.take(damage.halven());
-        }
         if (this.equals(defender)) {
             throw new InvalidAction();
         }
-        return defender.take(damage);
+        DamageDealer damageDealer = new DamageDealer();
+        Damage realDamage = damageDealer.calculateDamage(this.level,defender.level, damage);
+        return defender.take(realDamage);
     }
 
     public boolean isDead() {
