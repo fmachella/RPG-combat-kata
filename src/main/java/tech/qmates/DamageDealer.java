@@ -9,6 +9,9 @@ public class DamageDealer {
         if (target.isOverpowerFor(myself)) {
             realDamage = damage.halven();
         }
+        if (target.isWeakerFor(myself)){
+            realDamage=damage.doubleIt();
+        }
         return realDamage;
     }
 

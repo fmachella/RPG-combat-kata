@@ -6,4 +6,8 @@ public record Damage(int damages) {
     public Damage halven(){
         return new Damage(damages/2);
     }
+
+    public Damage doubleIt() {
+        return new Damage(damages*2);
+    }
 }

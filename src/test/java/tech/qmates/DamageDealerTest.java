@@ -25,4 +25,10 @@ class DamageDealerTest {
         Damage actual = damageDealer.calculateDamage(new Level(1), new Level(6), new Damage(1));
         assertEquals(Damage.ZERO,actual);
     }
+
+    @Test
+    void weaker_double_damage() {
+        Damage actual = damageDealer.calculateDamage(new Level(6), new Level(1), new Damage(10));
+        assertEquals(new Damage(20),actual);
+    }
 }
