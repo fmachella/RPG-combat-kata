@@ -1,5 +1,7 @@
 package tech.qmates;
 
+import tech.qmates.exceptions.InvalidAction;
+
 public class Character {
     private final Level level;
     private Health health;
@@ -18,6 +20,9 @@ public class Character {
     }
 
     public Health hit(Character defender, Damage damage) {
+        if (this.equals(defender)) {
+            throw new InvalidAction();
+        }
         return defender.take(damage);
     }
 

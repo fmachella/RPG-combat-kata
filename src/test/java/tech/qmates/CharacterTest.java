@@ -1,6 +1,7 @@
 package tech.qmates;
 
 import org.junit.jupiter.api.Test;
+import tech.qmates.exceptions.InvalidAction;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -66,5 +67,12 @@ public class CharacterTest {
 
         assertEquals(Health.FULL,full);
         assertFalse(fullfilled.isDead());
+    }
+
+    @Test
+    void cannot_suicide() {
+        Character suicidal = new Character();
+        Exception exception = assertThrows(InvalidAction.class,() -> suicidal.hit(suicidal,new Damage(2)));
+        assertEquals("You can't suicide. Are you fag?", exception.getMessage());
     }
 }
