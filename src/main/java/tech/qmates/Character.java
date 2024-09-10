@@ -7,12 +7,16 @@ public class Character {
     private Health health;
 
     public Character(Health health) {
-        this.level=new Level(1);
-        this.health = health;
+        this(health,new Level(1));
     }
 
     public Character() {
         this(Health.FULL);
+    }
+
+    public Character(Health health, Level level) {
+        this.level=level;
+        this.health = health;
     }
 
     public Health heals(Character wounded, Heal heal) {
@@ -20,6 +24,9 @@ public class Character {
     }
 
     public Health hit(Character defender, Damage damage) {
+        if (defender.level.diff(this.level) >= 5) {
+            return defender.take(damage.halven());
+        }
         if (this.equals(defender)) {
             throw new InvalidAction();
         }
@@ -50,6 +57,4 @@ public class Character {
         return this.health;
     }
 
-}
-record Level(int level) {
 }

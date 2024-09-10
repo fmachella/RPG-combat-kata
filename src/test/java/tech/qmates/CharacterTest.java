@@ -75,4 +75,14 @@ public class CharacterTest {
         Exception exception = assertThrows(InvalidAction.class,() -> suicidal.hit(suicidal,new Damage(2)));
         assertEquals("You can't suicide. Are you fag?", exception.getMessage());
     }
+
+    @Test
+    void five_level_weaker_character_makes_half_damage() {
+        Character attacker = new Character();
+        Character defender = new Character(new Health(20), new Level(6));
+
+        Health hit = attacker.hit(defender, new Damage(20));
+        assertEquals(new Health(10),hit);
+        assertFalse(defender.isDead());
+    }
 }

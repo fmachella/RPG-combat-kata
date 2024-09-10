@@ -1,9 +1,7 @@
 package tech.qmates;
 
 public record Damage(int damages) {
-//    private final int hits;
-//
-//    public Damage(int hits) {
-//        this.hits = hits;
-//    }
+    public Damage halven(){
+        return new Damage(damages/2);
+    }
 }
