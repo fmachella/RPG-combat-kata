@@ -47,4 +47,13 @@ public class CharacterTest {
 
         assertEquals(new Health(50),result);
     }
+
+    @Test
+    void dead_player_can_not_be_healed() {
+        Character healer = new Character();
+        Character dead = new Character(Health.ZERO);
+        Health result = healer.heals(dead,new Heal(33));
+        assertEquals(new Health(0),result);
+        assertTrue(dead.isDead());
+    }
 }

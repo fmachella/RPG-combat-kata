@@ -36,6 +36,8 @@ public class Character {
     }
 
     private Health take(Heal heal) {
+        if (this.isDead())
+            return Health.ZERO;
         Health left = this.health.heal(heal);
         this.health=left;
         return left;

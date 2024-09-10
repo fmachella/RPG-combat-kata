@@ -14,8 +14,8 @@
 - [X] Characters can Deal Damage to Characters
 - [X] Damage is subtracted from Health
 - [X] When damage received exceeds current Health, Health becomes 0 and the character is now Dead
-- [ ] A Character can Heal a Character
-- [ ] Dead characters cannot be healed
+- [X] A Character can Heal a Character
+- [X] Dead characters cannot be healed
 - [ ] Healing cannot raise health above 1000
 - [ ] A Character cannot Deal Damage to itself
 - [ ] If the target is 5 or more Levels above the attacker, Damage is reduced by 50%
