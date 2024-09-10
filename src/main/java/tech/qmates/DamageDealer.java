@@ -6,7 +6,7 @@ public class DamageDealer {
 
     public Damage calculateDamage(Level myself, Level target, Damage damage) {
         if (target.isOverpowerFor(myself)) {
-            return damage.halven();
+            return damage.halvenIt();
         }
         if (target.isWeakerFor(myself)){
             return damage.doubleIt();
