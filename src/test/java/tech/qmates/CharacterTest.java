@@ -60,16 +60,14 @@ public class CharacterTest {
         assertTrue(dead.isDead());
     }
 
-    //TODO: per coerenza anche questa deve diventare un'exception
     @Test
     void cannot_heal_fulfilled_characters() {
         Character healer = new Character();
         Character fullfilled = new Character();
 
-        Health full = healer.heals(fullfilled,new Heal(33));
+        Exception exception = assertThrows(InvalidAction.class, () -> healer.heals(fullfilled,new Heal(33)));
 
-        assertEquals(Health.FULL,full);
-        assertFalse(fullfilled.isDead());
+        assertEquals("You can't heal more! It's full", exception.getMessage());
     }
 
     @Test

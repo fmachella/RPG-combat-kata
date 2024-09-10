@@ -26,8 +26,6 @@ public class Character {
     }
 
     public Health heals(Character wounded, Heal heal) {
-        if (wounded.isDead())
-            throw new InvalidAction("You can't heal exploded chickens");
         return wounded.take(heal);
     }
 
@@ -53,8 +51,10 @@ public class Character {
     }
 
     private Health take(Heal heal) {
+        if (this.isDead())
+            throw new InvalidAction("You can't heal exploded chickens");
         if (this.health.equals(Health.FULL)){
-            return this.health;
+            throw new InvalidAction("You can't heal more! It's full");
         }
         this.health= this.health.heal(heal);
         return this.health;
