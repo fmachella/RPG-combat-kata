@@ -62,6 +62,7 @@ public class CharacterTest {
         assertTrue(dead.isDead());
     }
 
+    //TODO: per coerenza anche questa deve diventare un'exception
     @Test
     void cannot_heal_fulfilled_characters() {
         Character healer = new Character();
