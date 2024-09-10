@@ -2,9 +2,9 @@ package tech.qmates;
 
 class DamageDealer {
 
-    public Damage calculateDamage(Level myself, Level defender, Damage damage) {
+    public Damage calculateDamage(Level myself, Level target, Damage damage) {
         Damage realDamage = damage;
-        if (defender.diff(myself) >= 5) {
+        if (target.isOverpowerFor(myself)) {
             realDamage = damage.halven();
         }
         return realDamage;

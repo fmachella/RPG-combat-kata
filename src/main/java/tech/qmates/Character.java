@@ -23,13 +23,13 @@ public class Character {
         return wounded.take(heal);
     }
 
-    public Health hit(Character defender, Damage damage) {
-        if (this.equals(defender)) {
+    public Health hit(Character target, Damage damage) {
+        if (this.equals(target)) {
             throw new InvalidAction();
         }
         DamageDealer damageDealer = new DamageDealer();
-        Damage realDamage = damageDealer.calculateDamage(this.level,defender.level, damage);
-        return defender.take(realDamage);
+        Damage realDamage = damageDealer.calculateDamage(this.level,target.level, damage);
+        return target.take(realDamage);
     }
 
     public boolean isDead() {
