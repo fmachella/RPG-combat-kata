@@ -1,6 +1,5 @@
 package tech.qmates;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import tech.qmates.exceptions.InvalidAction;
 
@@ -79,26 +78,15 @@ public class CharacterTest {
     }
 
     @Test
-    void meleee_attack_miss() {
-        Weapon weapon = new Melee();
+    void character_delegate_to_weapon_the_attack() {
+        final Mock mock = new Mock();
+        Weapon weapon = distance -> {
+            mock.registerCall("attack");
+            return null;
+        };
         Character attacker = new Character(weapon);
-        Outcome outcome = attacker.attack(new Distance(5));
-        assertEquals(Outcome.MISS,outcome);
+        attacker.attack(new Distance(5));
+        assertEquals(1,mock.calls());
     }
 
-    @Test
-    void melee_attack_hit() {
-        Weapon weapon = new Melee();
-        Character attacker = new Character(weapon);
-        Outcome outcome = attacker.attack(new Distance(1));
-        assertEquals(Outcome.HIT,outcome);
-    }
-
-    @Test
-    @Disabled
-    void ranged_attack_hit() {
-        Character attacker = new Character();
-        Outcome outcome = attacker.attack(new Distance(10));
-        assertEquals(Outcome.HIT,outcome);
-    }
 }
