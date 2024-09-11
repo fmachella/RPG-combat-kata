@@ -23,9 +23,16 @@ public class AttackActionTest {
     }
 
     @Test
-    @Disabled
     void attacker_miss_and_no_damage_taken() {
+        Mock victimMock = new Mock();
+        Character meleeAttacker = new Character(new Melee());
+        Character victim = new SpiedCharacter(victimMock);
 
+        AttackAction attackAction = new AttackAction(meleeAttacker,victim);
+
+        attackAction.attack(new Distance(7));
+
+        assertEquals(0,victimMock.calls());
     }
 
     private static class SpiedCharacter extends Character {

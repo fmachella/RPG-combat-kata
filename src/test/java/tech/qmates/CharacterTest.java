@@ -81,11 +81,14 @@ public class CharacterTest {
     void character_delegate_to_weapon_the_attack() {
         final Mock mock = new Mock();
         Weapon weapon = new Weapon() {
+            private Character owner;
 
-            @Override
             public AttackOutcome tryHit(Distance distance) {
                 mock.registerCall("tryHit");
                 return null;
+            }
+            public void of(Character character) {
+                this.owner=character;
             }
         };
         Character attacker = new Character(weapon);

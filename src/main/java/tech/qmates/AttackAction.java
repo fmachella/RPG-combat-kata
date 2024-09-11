@@ -11,7 +11,6 @@ public class AttackAction {
 
     public void attack(Distance distance) {
         AttackOutcome attack = this.attacker.attack(distance);
-        if (attack instanceof Hit)
-            attacker.hit(victim,new Damage(2));
+        attack.apply(this.victim);
     }
 }

@@ -29,6 +29,7 @@ public class Character {
         this.health = health;
         this.damageDealer = damageDealer;
         this.weapon = weapon;
+        weapon.of(this);
     }
 
     public Character(Weapon weapon) {
