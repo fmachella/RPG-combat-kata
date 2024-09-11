@@ -16,7 +16,7 @@ public class Ranged implements AttackSkill {
         if (distance.isWithin(MAX_RANGE)){
             return new Hit(this.owner);
         }
-        return new Miss(this.owner);
+        return new Miss();
     }
 
     @Override

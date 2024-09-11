@@ -14,9 +14,9 @@ public class Melee implements AttackSkill {
     @Override
     public AttackOutcome tryHit(Distance distance) {
         if (distance.isWithin(MAX_RANGE)){
-            return new Hit(owner);
+            return new Hit(this.owner);
         }
-        return new Miss(owner);
+        return new Miss();
     }
 
     @Override
