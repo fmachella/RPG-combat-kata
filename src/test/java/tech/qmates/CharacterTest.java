@@ -80,13 +80,19 @@ public class CharacterTest {
     @Test
     void character_delegate_to_weapon_the_attack() {
         final Mock mock = new Mock();
-        Weapon weapon = distance -> {
-            mock.registerCall("attack");
-            return null;
+        Weapon weapon = new Weapon() {
+
+            @Override
+            public AttackOutcome tryHit(Distance distance) {
+                mock.registerCall("tryHit");
+                return null;
+            }
         };
         Character attacker = new Character(weapon);
         attacker.attack(new Distance(5));
+
         assertEquals(1,mock.calls());
+        assertTrue(mock.called("tryHit"));
     }
 
 }

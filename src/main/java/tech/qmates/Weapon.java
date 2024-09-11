@@ -1,5 +1,5 @@
 package tech.qmates;
 
 public interface Weapon {
-    Outcome attack(Distance distance);
+    AttackOutcome tryHit(Distance distance);
 }

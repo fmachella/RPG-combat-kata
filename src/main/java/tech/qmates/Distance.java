@@ -1,11 +1,8 @@
 package tech.qmates;
 
 record Distance(int val) {
-    public boolean isMeleeRange() {
-        return val<=2;
-    }
 
-    public boolean isRangedRange() {
-        return val<=20;
+    public boolean isWithin(int maxRange) {
+        return val<=maxRange;
     }
 }

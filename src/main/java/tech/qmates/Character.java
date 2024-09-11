@@ -51,7 +51,7 @@ public class Character {
         return this.health.equals(Health.ZERO);
     }
 
-    private Health take(Damage damage) {
+    protected Health take(Damage damage) {
         Health remaining = this.health.damage(damage);
         this.health=remaining;
         if (remaining.isAKillingBlow()){
@@ -60,7 +60,7 @@ public class Character {
         return this.health;
     }
 
-    private Health take(Heal heal) {
+    protected Health take(Heal heal) {
         if (this.isDead())
             throw new InvalidAction("You can't heal exploded chickens");
         if (this.health.equals(Health.FULL)){
@@ -70,7 +70,7 @@ public class Character {
         return this.health;
     }
 
-    public Outcome attack(Distance distance) {
-        return this.weapon.attack(distance);
+    public AttackOutcome attack(Distance distance) {
+        return this.weapon.tryHit(distance);
     }
 }

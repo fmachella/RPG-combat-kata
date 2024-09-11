@@ -13,4 +13,8 @@ class Mock {
     public int calls() {
         return calls.size();
     }
+
+    public boolean called(String takeDamage) {
+        return calls.contains(takeDamage);
+    }
 }
