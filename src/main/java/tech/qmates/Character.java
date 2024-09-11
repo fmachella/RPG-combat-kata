@@ -5,6 +5,7 @@ import tech.qmates.exceptions.InvalidAction;
 public class Character {
     private final DamageDealer damageDealer;
     private final Level level;
+    private final Weapon weapon;
     private Health health;
 
     public Character(Health health) {
@@ -20,9 +21,18 @@ public class Character {
     }
 
     public Character(Health health, Level level, DamageDealer damageDealer) {
+        this(health,level,damageDealer,new Melee());
+    }
+
+    public Character(Health health, Level level, DamageDealer damageDealer, Weapon weapon) {
         this.level=level;
         this.health = health;
         this.damageDealer = damageDealer;
+        this.weapon = weapon;
+    }
+
+    public Character(Weapon weapon) {
+        this(Health.FULL,new Level(1),new DamageDealer(),weapon);
     }
 
     public Health heals(Character wounded, Heal heal) {
