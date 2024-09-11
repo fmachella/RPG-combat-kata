@@ -63,9 +63,9 @@ public class CharacterTest {
     @Test
     void cannot_heal_fulfilled_characters() {
         Character healer = new Character();
-        Character fullfilled = new Character();
+        Character fulfilled = new Character();
 
-        Exception exception = assertThrows(InvalidAction.class, () -> healer.heals(fullfilled,new Heal(33)));
+        Exception exception = assertThrows(InvalidAction.class, () -> healer.heals(fulfilled,new Heal(33)));
 
         assertEquals("You can't heal more! It's full", exception.getMessage());
     }
@@ -77,5 +77,12 @@ public class CharacterTest {
         assertEquals("You can't suicide. Are you fag?", exception.getMessage());
     }
 
+    @Test
+    void attack_miss() {
+        Character attacker = new Character();
+        Character defender = new Character();
+        Outcome outcome = attacker.attack(defender,new Distance(5));
+        assertEquals(Outcome.MISS,outcome);
+    }
 
 }

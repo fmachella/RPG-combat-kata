@@ -60,4 +60,7 @@ public class Character {
         return this.health;
     }
 
+    public Outcome attack(Character defender, Distance distance) {
+        return Outcome.MISS;
+    }
 }
