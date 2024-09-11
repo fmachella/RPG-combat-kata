@@ -71,9 +71,6 @@ public class Character {
     }
 
     public Outcome attack(Distance distance) {
-        if (distance.isMeleeRange()){
-            return Outcome.HIT;
-        }
-        return Outcome.MISS;
+        return this.weapon.attack(distance);
     }
 }
