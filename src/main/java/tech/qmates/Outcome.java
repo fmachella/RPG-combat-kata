@@ -1,5 +1,5 @@
 package tech.qmates;
 
 public enum Outcome {
-    MISS
+    HIT, MISS
 }

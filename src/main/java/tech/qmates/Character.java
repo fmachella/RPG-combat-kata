@@ -60,7 +60,10 @@ public class Character {
         return this.health;
     }
 
-    public Outcome attack(Character defender, Distance distance) {
+    public Outcome attack(Distance distance) {
+        if (distance.isMeleeRange()){
+            return Outcome.HIT;
+        }
         return Outcome.MISS;
     }
 }

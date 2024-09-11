@@ -78,11 +78,16 @@ public class CharacterTest {
     }
 
     @Test
-    void attack_miss() {
+    void meleee_attack_miss() {
         Character attacker = new Character();
-        Character defender = new Character();
-        Outcome outcome = attacker.attack(defender,new Distance(5));
+        Outcome outcome = attacker.attack(new Distance(5));
         assertEquals(Outcome.MISS,outcome);
     }
 
+    @Test
+    void melee_attack_hit() {
+        Character attacker = new Character();
+        Outcome outcome = attacker.attack(new Distance(1));
+        assertEquals(Outcome.HIT,outcome);
+    }
 }
