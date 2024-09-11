@@ -1,9 +1,15 @@
-package tech.qmates;
+package tech.qmates.weapons;
 
-public class Ranged implements Weapon {
+import tech.qmates.Character;
+import tech.qmates.Distance;
+import tech.qmates.actions.AttackOutcome;
+import tech.qmates.actions.Hit;
+import tech.qmates.actions.Miss;
+
+public class Ranged implements AttackSkill {
 
     public static final int MAX_RANGE = 20;
-    private Character owner;
+    private tech.qmates.Character owner;
 
     @Override
     public AttackOutcome tryHit(Distance distance) {

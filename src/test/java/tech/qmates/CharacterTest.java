@@ -1,7 +1,9 @@
 package tech.qmates;
 
 import org.junit.jupiter.api.Test;
+import tech.qmates.actions.AttackOutcome;
 import tech.qmates.exceptions.InvalidAction;
+import tech.qmates.weapons.AttackSkill;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -80,7 +82,7 @@ public class CharacterTest {
     @Test
     void character_delegate_to_weapon_the_attack() {
         final Mock mock = new Mock();
-        Weapon weapon = new Weapon() {
+        AttackSkill attackSkill = new AttackSkill() {
             private Character owner;
 
             public AttackOutcome tryHit(Distance distance) {
@@ -91,7 +93,7 @@ public class CharacterTest {
                 this.owner=character;
             }
         };
-        Character attacker = new Character(weapon);
+        Character attacker = new Character(attackSkill);
         attacker.attack(new Distance(5));
 
         assertEquals(1,mock.calls());

@@ -1,11 +1,14 @@
 package tech.qmates;
 
+import tech.qmates.actions.AttackOutcome;
 import tech.qmates.exceptions.InvalidAction;
+import tech.qmates.weapons.AttackSkill;
+import tech.qmates.weapons.Melee;
 
 public class Character {
     private final DamageDealer damageDealer;
     private final Level level;
-    private final Weapon weapon;
+    private final AttackSkill attackSkill;
     private Health health;
 
     public Character(Health health) {
@@ -24,16 +27,16 @@ public class Character {
         this(health,level,damageDealer,new Melee());
     }
 
-    public Character(Health health, Level level, DamageDealer damageDealer, Weapon weapon) {
+    public Character(Health health, Level level, DamageDealer damageDealer, AttackSkill attackSkill) {
         this.level=level;
         this.health = health;
         this.damageDealer = damageDealer;
-        this.weapon = weapon;
-        weapon.of(this);
+        this.attackSkill = attackSkill;
+        attackSkill.of(this);
     }
 
-    public Character(Weapon weapon) {
-        this(Health.FULL,new Level(1),new DamageDealer(),weapon);
+    public Character(AttackSkill attackSkill) {
+        this(Health.FULL,new Level(1),new DamageDealer(), attackSkill);
     }
 
     public Health heals(Character wounded, Heal heal) {
@@ -72,6 +75,6 @@ public class Character {
     }
 
     public AttackOutcome attack(Distance distance) {
-        return this.weapon.tryHit(distance);
+        return this.attackSkill.tryHit(distance);
     }
 }
