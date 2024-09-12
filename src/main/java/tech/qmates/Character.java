@@ -5,11 +5,16 @@ import tech.qmates.exceptions.InvalidAction;
 import tech.qmates.weapons.AttackSkill;
 import tech.qmates.weapons.Melee;
 
+import java.util.HashSet;
+import java.util.function.BinaryOperator;
+import java.util.function.Predicate;
+
 public class Character {
     private final DamageDealer damageDealer;
     private final Level level;
     private final AttackSkill attackSkill;
     private Health health;
+    private HashSet<Faction> factions;
 
     public Character(Health health) {
         this(health,new Level(1));
@@ -28,11 +33,21 @@ public class Character {
     }
 
     public Character(Health health, Level level, DamageDealer damageDealer, AttackSkill attackSkill) {
-        this.level=level;
-        this.health = health;
+        this(health, level, damageDealer,attackSkill,new HashSet<>());
+    }
+
+    public Character(Health health, Level level, DamageDealer damageDealer, AttackSkill attackSkill, HashSet<Faction> factionsMemory) {
         this.damageDealer = damageDealer;
+        this.level = level;
         this.attackSkill = attackSkill;
+        this.health = health;
+        this.factions = factionsMemory;
         attackSkill.of(this);
+    }
+
+    public Character(HashSet<Faction> factions) {
+        this();
+        this.factions = factions;
     }
 
     public Character(AttackSkill attackSkill) {
@@ -80,9 +95,15 @@ public class Character {
 
     public void join(Faction faction) {
         faction.subscribe(this);
+        this.factions.add(faction);
+    }
+
+    public void quit(Faction faction) {
+        this.factions.remove(faction);
+        faction.strikeOff(this);
     }
 
     public boolean isHeAllied(Character character) {
-        return false;
+        return factions.stream().anyMatch(faction -> faction.isHeAMember(character));
     }
 }

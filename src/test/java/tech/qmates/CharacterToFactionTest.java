@@ -8,6 +8,7 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+//Qui potrebbe nascondersi il concetto di registro che tiene la lista di fazioni e membri e le gestisce lei
 public class CharacterToFactionTest {
 
     HashSet<Character> kaiMemory;
@@ -15,6 +16,7 @@ public class CharacterToFactionTest {
     Character lonewolf;
     HashSet<Character> ramasMemory;
     Faction ramasKnights;
+    private HashSet<Faction> lonewolfFactionCards;
 
     @BeforeEach
     void setUp() {
@@ -22,7 +24,8 @@ public class CharacterToFactionTest {
         ramasMemory = new HashSet<>();
         kaiKnights = new Faction(kaiMemory);
         ramasKnights = new Faction(ramasMemory);
-        lonewolf = new Character();
+        lonewolfFactionCards = new HashSet<>();
+        lonewolf = new Character(lonewolfFactionCards);
     }
 
     @Test
@@ -30,6 +33,7 @@ public class CharacterToFactionTest {
         lonewolf.join(kaiKnights);
 
         assertTrue(kaiMemory.contains(lonewolf));
+        assertTrue(lonewolfFactionCards.contains(kaiKnights));
     }
 
     @Test
@@ -39,14 +43,29 @@ public class CharacterToFactionTest {
 
         assertTrue(kaiMemory.contains(lonewolf));
         assertTrue(ramasMemory.contains(lonewolf));
+        assertTrue(lonewolfFactionCards.contains(kaiKnights));
+        assertTrue(lonewolfFactionCards.contains(ramasKnights));
     }
 
     @Test
-    @Disabled
+    void lonewolf_quit_kai_knights() {
+        kaiMemory.add(lonewolf);
+
+        lonewolf.quit(kaiKnights);
+
+        assertTrue(kaiMemory.isEmpty());
+        assertTrue(lonewolfFactionCards.isEmpty());
+    }
+
+    @Test
     void thunder_hawk_is_a_lonewolf_allied() {
-        Character ramasMasterThunderHawk = new Character();
-        ramasMasterThunderHawk.join(ramasKnights);
-        lonewolf.join(ramasKnights);
+        HashSet<Faction> hawkFactionCards = new HashSet<>();
+        Character ramasMasterThunderHawk = new Character(hawkFactionCards);
+        ramasMemory.add(ramasMasterThunderHawk);
+        ramasMemory.add(lonewolf);
+        lonewolfFactionCards.add(ramasKnights);
+        hawkFactionCards.add(ramasKnights);
+
 
         assertTrue(lonewolf.isHeAllied(ramasMasterThunderHawk));
     }
