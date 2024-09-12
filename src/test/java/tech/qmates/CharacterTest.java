@@ -5,6 +5,8 @@ import tech.qmates.actions.AttackOutcome;
 import tech.qmates.exceptions.InvalidAction;
 import tech.qmates.weapons.AttackSkill;
 
+import java.util.HashSet;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CharacterTest {
@@ -44,6 +46,17 @@ public class CharacterTest {
     @Test
     void healer() {
         Character healer = new Character();
+        Character wounded = new Character(new Health(17));
+
+        Health result = healer.heals(wounded,new Heal(33));
+
+        assertEquals(new Health(50),result);
+    }
+
+    @Test
+    void healer_heals_an_allied() {
+        FactionCards factionCards = new FactionCards(new HashSet<>());
+        Character healer = new Character(factionCards);
         Character wounded = new Character(new Health(17));
 
         Health result = healer.heals(wounded,new Heal(33));

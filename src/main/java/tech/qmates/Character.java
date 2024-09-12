@@ -6,15 +6,13 @@ import tech.qmates.weapons.AttackSkill;
 import tech.qmates.weapons.Melee;
 
 import java.util.HashSet;
-import java.util.function.BinaryOperator;
-import java.util.function.Predicate;
 
 public class Character {
     private final DamageDealer damageDealer;
     private final Level level;
     private final AttackSkill attackSkill;
     private Health health;
-    private HashSet<Faction> factions;
+    private FactionCards factions;
 
     public Character(Health health) {
         this(health,new Level(1));
@@ -33,21 +31,21 @@ public class Character {
     }
 
     public Character(Health health, Level level, DamageDealer damageDealer, AttackSkill attackSkill) {
-        this(health, level, damageDealer,attackSkill,new HashSet<>());
+        this(health, level, damageDealer,attackSkill, new FactionCards(new HashSet<>()));
     }
 
-    public Character(Health health, Level level, DamageDealer damageDealer, AttackSkill attackSkill, HashSet<Faction> factionsMemory) {
+    public Character(Health health, Level level, DamageDealer damageDealer, AttackSkill attackSkill, FactionCards factionCards) {
         this.damageDealer = damageDealer;
         this.level = level;
         this.attackSkill = attackSkill;
         this.health = health;
-        this.factions = factionsMemory;
+        this.factions = factionCards;
         attackSkill.of(this);
     }
 
-    public Character(HashSet<Faction> factions) {
+    public Character(FactionCards factionCards) {
         this();
-        this.factions = factions;
+        this.factions = factionCards;
     }
 
     public Character(AttackSkill attackSkill) {

@@ -1,7 +1,6 @@
 package tech.qmates;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -26,7 +25,7 @@ public class CharacterToFactionTest {
         kaiKnights = new Faction(kaiMemory);
         ramasKnights = new Faction(ramasMemory);
         lonewolfFactionCards = new HashSet<>();
-        lonewolf = new Character(lonewolfFactionCards);
+        lonewolf = new Character(new FactionCards(lonewolfFactionCards));
     }
 
     @Test
@@ -61,7 +60,7 @@ public class CharacterToFactionTest {
     @Test
     void thunder_hawk_is_a_lonewolf_allied() {
         HashSet<Faction> hawkFactionCards = new HashSet<>();
-        Character ramasMasterThunderHawk = new Character(hawkFactionCards);
+        Character ramasMasterThunderHawk = new Character(new FactionCards(hawkFactionCards));
         ramasMemory.add(ramasMasterThunderHawk);
         ramasMemory.add(lonewolf);
         lonewolfFactionCards.add(ramasKnights);
