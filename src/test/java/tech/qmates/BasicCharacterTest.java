@@ -9,10 +9,10 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CharacterTest {
+public class BasicCharacterTest {
     @Test
     void a_character_hit_another_one_but_still_alive() {
-        Character attacker = new Character(new Health(100));
+        BasicCharacter attacker = new Character(new Health(100));
         Character defender = new Character(new Health(100));
 
         Health remainingHealth = attacker.hit(defender,new Damage(5));
@@ -23,7 +23,7 @@ public class CharacterTest {
 
     @Test
     void a_character_hit_another_one_twice_but_still_alive() {
-        Character attacker = new Character(new Health(100));
+        BasicCharacter attacker = new Character(new Health(100));
         Character defender = new Character(new Health(100));
 
                                     attacker.hit(defender,new Damage(5));
@@ -35,7 +35,7 @@ public class CharacterTest {
 
     @Test
     void a_character_kills_another() {
-        Character attacker = new Character(new Health(100));
+        BasicCharacter attacker = new Character(new Health(100));
         Character defender = new Character(new Health(20));
 
         attacker.hit(defender,new Damage(50));
@@ -45,7 +45,7 @@ public class CharacterTest {
 
     @Test
     void overpower_character_kills_weaker_one() {
-        Character attacker = new Character(new Health(100),new Level(30));
+        BasicCharacter attacker = new Character(new Health(100),new Level(30));
         Character victim = new Character(new Health(30),new Level(1));
         attacker.hit(victim,new Damage(15));
         assertTrue(victim.isDead());
@@ -53,7 +53,7 @@ public class CharacterTest {
     @Test
 
     void weak_character_cannot_kill_a_bigger_one() {
-        Character attacker = new Character(new Health(100),new Level(1));
+        BasicCharacter attacker = new Character(new Health(100),new Level(1));
         Character rock = new Character(new Health(100),new Level(100));
         attacker.hit(rock,new Damage(100));
         assertFalse(rock.isDead());
@@ -61,8 +61,8 @@ public class CharacterTest {
 
     @Test
     void healer() {
-        Character healer = new Character();
-        Character wounded = new Character(new Health(17));
+        BasicCharacter healer = new Character();
+        BasicCharacter wounded = new Character(new Health(17));
 
         Health result = healer.heals(wounded,new Heal(33));
 
@@ -71,9 +71,9 @@ public class CharacterTest {
 
     @Test
     void healer_heals_an_allied() {
-        FactionCards factionCards = new FactionCards(new HashSet<>());
-        Character healer = new Character(factionCards);
-        Character wounded = new Character(new Health(17));
+        Membership membership = new Membership(new HashSet<>());
+        BasicCharacter healer = new Character(membership);
+        BasicCharacter wounded = new Character(new Health(17));
 
         Health result = healer.heals(wounded,new Heal(33));
 
@@ -82,8 +82,8 @@ public class CharacterTest {
 
     @Test
     void dead_player_can_not_be_healed() {
-        Character healer = new Character();
-        Character dead = new Character(Health.ZERO);
+        BasicCharacter healer = new Character();
+        BasicCharacter dead = new Character(Health.ZERO);
 
         Exception exception = assertThrows(InvalidAction.class, () -> healer.heals(dead,new Heal(33)));
 
@@ -93,8 +93,8 @@ public class CharacterTest {
 
     @Test
     void cannot_heal_fulfilled_characters() {
-        Character healer = new Character();
-        Character fulfilled = new Character();
+        BasicCharacter healer = new Character();
+        BasicCharacter fulfilled = new Character();
 
         Exception exception = assertThrows(InvalidAction.class, () -> healer.heals(fulfilled,new Heal(33)));
 
@@ -112,17 +112,17 @@ public class CharacterTest {
     void character_delegate_to_weapon_the_attack() {
         final Mock mock = new Mock();
         AttackSkill attackSkill = new AttackSkill() {
-            private Character owner;
+            private BasicCharacter owner;
 
             public AttackOutcome tryHit(Distance distance) {
                 mock.registerCall("tryHit");
                 return null;
             }
-            public void of(Character character) {
+            public void of(BasicCharacter character) {
                 this.owner=character;
             }
         };
-        Character attacker = new Character(attackSkill);
+        BasicCharacter attacker = new Character(attackSkill);
         attacker.attack(new Distance(5));
 
         assertEquals(1,mock.calls());

@@ -7,11 +7,11 @@ import tech.qmates.weapons.Melee;
 
 import java.util.HashSet;
 
-public class Character {
+public class Character implements BasicCharacter,FactionableCharacter {
     private final Level level;
     private final AttackSkill attackSkill;
     private Health health;
-    private FactionCards factions;
+    private Membership factions;
 
     public Character(Health health) {
         this(health,new Level(1));
@@ -26,49 +26,49 @@ public class Character {
     }
 
     public Character(Health health, Level level, AttackSkill attackSkill) {
-        this(health, level, attackSkill, new FactionCards(new HashSet<>()));
+        this(health, level, attackSkill, new Membership(new HashSet<>()));
     }
 
-    public Character(Health health, Level level, AttackSkill attackSkill, FactionCards factionCards) {
+    public Character(Health health, Level level, AttackSkill attackSkill, Membership membership) {
         this.level = level;
         this.attackSkill = attackSkill;
         this.health = health;
-        this.factions = factionCards;
+        this.factions = membership;
         attackSkill.of(this);
     }
 
-    public Character(FactionCards factionCards) {
+    public Character(Membership membership) {
         this();
-        this.factions = factionCards;
+        this.factions = membership;
     }
 
     public Character(AttackSkill attackSkill) {
         this(Health.FULL,new Level(1), attackSkill);
     }
 
-    public Health heals(Character wounded, Heal heal) {
+    @Override
+    public Health heals(BasicCharacter wounded, Heal heal) {
         return wounded.take(heal);
     }
 
-    public Health hit(Character target, Damage damage) {
+    @Override
+    public Health hit(BasicCharacter target, Damage damage) {
         if (this.equals(target)) {
             throw new InvalidAction("You can't suicide. Are you fag?");
         }
-        DamageMultiplier multiplier = disparityEffect(target);
+        DamageMultiplier multiplier = this.level.disparityEffect(target.level());
         Damage realDamage = multiplier.calculateReal(damage);
 
         return target.take(realDamage);
     }
 
-    public DamageMultiplier disparityEffect(Character target) {
-        return this.level.disparityEffect(target.level);
-    }
-
+    @Override
     public boolean isDead() {
         return this.health.equals(Health.ZERO);
     }
 
-    protected Health take(Damage damage) {
+    @Override
+    public Health take(Damage damage) {
         Health remaining = this.health.damage(damage);
         this.health=remaining;
         if (remaining.isAKillingBlow()){
@@ -77,7 +77,8 @@ public class Character {
         return this.health;
     }
 
-    protected Health take(Heal heal) {
+    @Override
+    public Health take(Heal heal) {
         if (this.isDead())
             throw new InvalidAction("You can't heal exploded chickens");
         if (this.health.equals(Health.FULL)){
@@ -87,21 +88,30 @@ public class Character {
         return this.health;
     }
 
+    @Override
     public AttackOutcome attack(Distance distance) {
         return this.attackSkill.tryHit(distance);
     }
 
+    @Override
     public void join(Faction faction) {
         faction.subscribe(this);
         this.factions.add(faction);
     }
 
+    @Override
     public void quit(Faction faction) {
         this.factions.remove(faction);
         faction.strikeOff(this);
     }
 
-    public boolean isHeAllied(Character character) {
+    @Override
+    public boolean isHeAllied(FactionableCharacter character) {
         return factions.stream().anyMatch(faction -> faction.isHeAMember(character));
+    }
+
+    @Override
+    public Level level() {
+        return this.level;
     }
 }

@@ -12,7 +12,7 @@ public class AttackActionTest {
     @Test
     void attacker_hit_and_makes_damage() {
         Mock victimMock = new Mock();
-        Character meleeAttacker = new Character(new Melee());
+        BasicCharacter meleeAttacker = new Character(new Melee());
         Character victim = new SpiedCharacter(victimMock);
 
         AttackAction attackAction = new AttackAction(meleeAttacker,victim);
@@ -26,7 +26,7 @@ public class AttackActionTest {
     @Test
     void attacker_miss_and_no_damage_taken() {
         Mock victimMock = new Mock();
-        Character meleeAttacker = new Character(new Melee());
+        BasicCharacter meleeAttacker = new Character(new Melee());
         Character victim = new SpiedCharacter(victimMock);
 
         AttackAction attackAction = new AttackAction(meleeAttacker,victim);
@@ -44,7 +44,7 @@ public class AttackActionTest {
         }
 
         @Override
-        protected Health take(Damage damage) {
+        public Health take(Damage damage) {
             victimMock.registerCall("take(Damage)");
             return super.take(damage);
         }

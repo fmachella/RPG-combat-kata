@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //Qui potrebbe nascondersi il concetto di registro che tiene la lista di fazioni e membri e le gestisce lei
-public class CharacterToFactionTest {
+public class BasicCharacterToFactionTest {
 
-    HashSet<Character> kaiMemory;
+    HashSet<FactionableCharacter> kaiMemory;
     Faction kaiKnights;
-    Character lonewolf;
-    HashSet<Character> ramasMemory;
+    FactionableCharacter lonewolf;
+    HashSet<FactionableCharacter> ramasMemory;
     Faction ramasKnights;
     private HashSet<Faction> lonewolfFactionCards;
 
@@ -25,7 +25,7 @@ public class CharacterToFactionTest {
         kaiKnights = new Faction(kaiMemory);
         ramasKnights = new Faction(ramasMemory);
         lonewolfFactionCards = new HashSet<>();
-        lonewolf = new Character(new FactionCards(lonewolfFactionCards));
+        lonewolf = new Character(new Membership(lonewolfFactionCards));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class CharacterToFactionTest {
     @Test
     void thunder_hawk_is_a_lonewolf_allied() {
         HashSet<Faction> hawkFactionCards = new HashSet<>();
-        Character ramasMasterThunderHawk = new Character(new FactionCards(hawkFactionCards));
+        FactionableCharacter ramasMasterThunderHawk = new Character(new Membership(hawkFactionCards));
         ramasMemory.add(ramasMasterThunderHawk);
         ramasMemory.add(lonewolf);
         lonewolfFactionCards.add(ramasKnights);
@@ -72,7 +72,7 @@ public class CharacterToFactionTest {
 
     @Test
     void black_knight_is_a_lonewolf_foo() {
-        Character blackNight = new Character();
+        FactionableCharacter blackNight = new Character();
         ramasMemory.add(lonewolf);
         lonewolfFactionCards.add(ramasKnights);
 

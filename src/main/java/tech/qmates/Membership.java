@@ -3,10 +3,10 @@ package tech.qmates;
 import java.util.HashSet;
 import java.util.stream.Stream;
 
-public class FactionCards {
+public class Membership {
     private final HashSet<Faction> factionsMemory;
 
-    public FactionCards(HashSet<Faction> factionsMemory) {
+    public Membership(HashSet<Faction> factionsMemory) {
         this.factionsMemory = factionsMemory;
     }
 

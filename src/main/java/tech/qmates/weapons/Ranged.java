@@ -1,6 +1,6 @@
 package tech.qmates.weapons;
 
-import tech.qmates.Character;
+import tech.qmates.BasicCharacter;
 import tech.qmates.Distance;
 import tech.qmates.actions.AttackOutcome;
 import tech.qmates.actions.Hit;
@@ -9,7 +9,7 @@ import tech.qmates.actions.Miss;
 public class Ranged implements AttackSkill {
 
     public static final int MAX_RANGE = 20;
-    private tech.qmates.Character owner;
+    private BasicCharacter owner;
 
     @Override
     public AttackOutcome tryHit(Distance distance) {
@@ -20,7 +20,7 @@ public class Ranged implements AttackSkill {
     }
 
     @Override
-    public void of(Character owner) {
+    public void of(BasicCharacter owner) {
         this.owner=owner;
     }
 }
