@@ -7,7 +7,7 @@ import tech.qmates.weapons.Melee;
 
 import java.util.HashSet;
 
-public class Character implements BasicCharacter,FactionableCharacter {
+public class Character implements BasicCharacter, RecruitableCharacter {
     private final Level level;
     private final AttackSkill attackSkill;
     private Health health;
@@ -106,7 +106,7 @@ public class Character implements BasicCharacter,FactionableCharacter {
     }
 
     @Override
-    public boolean isHeAllied(FactionableCharacter character) {
+    public boolean isHeAllied(RecruitableCharacter character) {
         return factions.stream().anyMatch(faction -> faction.isHeAMember(character));
     }
 

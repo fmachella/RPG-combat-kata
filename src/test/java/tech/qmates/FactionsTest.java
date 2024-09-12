@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FactionsTest {
 
-    FactionableCharacter lonewolf;
-    HashSet<FactionableCharacter> ramas_faction_pool;
+    RecruitableCharacter lonewolf;
+    HashSet<RecruitableCharacter> ramas_faction_pool;
     Faction ramas_knights;
 
     @BeforeEach

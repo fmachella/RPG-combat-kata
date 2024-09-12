@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 //Qui potrebbe nascondersi il concetto di registro che tiene la lista di fazioni e membri e le gestisce lei
 public class BasicCharacterToFactionTest {
 
-    HashSet<FactionableCharacter> kaiMemory;
+    HashSet<RecruitableCharacter> kaiMemory;
     Faction kaiKnights;
-    FactionableCharacter lonewolf;
-    HashSet<FactionableCharacter> ramasMemory;
+    RecruitableCharacter lonewolf;
+    HashSet<RecruitableCharacter> ramasMemory;
     Faction ramasKnights;
     private HashSet<Faction> lonewolfFactionCards;
 
@@ -60,7 +60,7 @@ public class BasicCharacterToFactionTest {
     @Test
     void thunder_hawk_is_a_lonewolf_allied() {
         HashSet<Faction> hawkFactionCards = new HashSet<>();
-        FactionableCharacter ramasMasterThunderHawk = new Character(new Membership(hawkFactionCards));
+        RecruitableCharacter ramasMasterThunderHawk = new Character(new Membership(hawkFactionCards));
         ramasMemory.add(ramasMasterThunderHawk);
         ramasMemory.add(lonewolf);
         lonewolfFactionCards.add(ramasKnights);
@@ -72,7 +72,7 @@ public class BasicCharacterToFactionTest {
 
     @Test
     void black_knight_is_a_lonewolf_foo() {
-        FactionableCharacter blackNight = new Character();
+        RecruitableCharacter blackNight = new Character();
         ramasMemory.add(lonewolf);
         lonewolfFactionCards.add(ramasKnights);
 
