@@ -20,7 +20,7 @@ class LevelTest {
     void overpower_halve_damage() {
         Level myself = new Level(1);
         Level target = new Level(6);
-        DamageMultiplier multiplier = target.disparityEffect(myself);
+        DamageMultiplier multiplier = myself.disparityEffect(target);
         assertEquals(DamageMultiplier.HALF,multiplier);
     }
 
@@ -28,7 +28,7 @@ class LevelTest {
     void overpower_halve_damage_but_nullify_on_weak_hit() {
         Level myself = new Level(1);
         Level target = new Level(6);
-        DamageMultiplier multiplier = target.disparityEffect(myself);
+        DamageMultiplier multiplier = myself.disparityEffect(target);
         assertEquals(DamageMultiplier.HALF,multiplier);
     }
 
@@ -36,7 +36,7 @@ class LevelTest {
     void weaker_double_damage() {
         Level myself = new Level(6);
         Level target = new Level(1);
-        DamageMultiplier multiplier = target.disparityEffect(myself);
+        DamageMultiplier multiplier = myself.disparityEffect(target);
         assertEquals(DamageMultiplier.DOUBLE,multiplier);
     }
 }

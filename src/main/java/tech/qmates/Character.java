@@ -54,7 +54,7 @@ public class Character {
         if (this.equals(target)) {
             throw new InvalidAction("You can't suicide. Are you fag?");
         }
-        DamageMultiplier multiplier = target.level.disparityEffect(this.level);
+        DamageMultiplier multiplier = this.level.disparityEffect(target.level);
 
         Damage realDamage = multiplier.apply(damage);
 

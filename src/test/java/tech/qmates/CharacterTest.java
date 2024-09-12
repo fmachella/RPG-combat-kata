@@ -44,6 +44,22 @@ public class CharacterTest {
     }
 
     @Test
+    void overpower_character_kills_weaker_one() {
+        Character attacker = new Character(new Health(100),new Level(30));
+        Character victim = new Character(new Health(30),new Level(1));
+        attacker.hit(victim,new Damage(15));
+        assertTrue(victim.isDead());
+    }
+    @Test
+
+    void weak_character_cannot_kill_a_bigger_one() {
+        Character attacker = new Character(new Health(100),new Level(1));
+        Character rock = new Character(new Health(100),new Level(100));
+        attacker.hit(rock,new Damage(100));
+        assertFalse(rock.isDead());
+    }
+
+    @Test
     void healer() {
         Character healer = new Character();
         Character wounded = new Character(new Health(17));

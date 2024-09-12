@@ -10,11 +10,11 @@ public record Level(int level) {
         return myself.level - this.level >= 5;
     }
 
-    public DamageMultiplier disparityEffect(Level myself) {
-        if (this.isOverpowerFor(myself)) {
+    public DamageMultiplier disparityEffect(Level targetLevel) {
+        if (targetLevel.isOverpowerFor(this)) {
             return DamageMultiplier.HALF;
         }
-        if (this.isWeakerFor(myself)){
+        if (targetLevel.isWeakerFor(this)){
             return DamageMultiplier.DOUBLE;
         }
         return DamageMultiplier.SAME;
