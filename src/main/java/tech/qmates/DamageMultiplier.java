@@ -7,7 +7,7 @@ public record DamageMultiplier(BigDecimal multiplier) {
     public static final DamageMultiplier HALF = new DamageMultiplier(BigDecimal.valueOf(0.5));
     public static final DamageMultiplier DOUBLE = new DamageMultiplier(BigDecimal.valueOf(2));
 
-    public Damage apply(Damage damage) {
+    public Damage calculateReal(Damage damage) {
         return damage.applyMultiplier(multiplier);
     }
 }
