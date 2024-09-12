@@ -13,7 +13,11 @@ public class Faction {
         factionPool.add(character);
     }
 
-    public void strikeOff(Character lonewolf) {
-        this.factionPool.remove(lonewolf);
+    public void strikeOff(Character character) {
+        this.factionPool.remove(character);
+    }
+
+    public boolean isHeAMember(Character character) {
+        return this.factionPool.contains(character);
     }
 }
