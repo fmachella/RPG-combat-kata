@@ -1,13 +1,11 @@
 package tech.qmates;
 
+import java.math.BigDecimal;
+
 public record Damage(int damages) {
     public static final Damage ZERO = new Damage(0);
 
-    public Damage halvenIt(){
-        return new Damage(damages/2);
-    }
-
-    public Damage doubleIt() {
-        return new Damage(damages*2);
+    public Damage applyMultiplier(BigDecimal multiplier) {
+        return new Damage(multiplier.multiply(BigDecimal.valueOf(damages)).intValue());
     }
 }

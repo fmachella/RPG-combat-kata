@@ -8,7 +8,6 @@ import tech.qmates.weapons.Melee;
 import java.util.HashSet;
 
 public class Character {
-    private final DamageDealer damageDealer;
     private final Level level;
     private final AttackSkill attackSkill;
     private Health health;
@@ -23,19 +22,14 @@ public class Character {
     }
 
     public Character(Health health, Level level) {
-        this(health,level,new DamageDealer());
+        this(health,level,new Melee());
     }
 
-    public Character(Health health, Level level, DamageDealer damageDealer) {
-        this(health,level,damageDealer,new Melee());
+    public Character(Health health, Level level, AttackSkill attackSkill) {
+        this(health, level, attackSkill, new FactionCards(new HashSet<>()));
     }
 
-    public Character(Health health, Level level, DamageDealer damageDealer, AttackSkill attackSkill) {
-        this(health, level, damageDealer,attackSkill, new FactionCards(new HashSet<>()));
-    }
-
-    public Character(Health health, Level level, DamageDealer damageDealer, AttackSkill attackSkill, FactionCards factionCards) {
-        this.damageDealer = damageDealer;
+    public Character(Health health, Level level, AttackSkill attackSkill, FactionCards factionCards) {
         this.level = level;
         this.attackSkill = attackSkill;
         this.health = health;
@@ -49,7 +43,7 @@ public class Character {
     }
 
     public Character(AttackSkill attackSkill) {
-        this(Health.FULL,new Level(1),new DamageDealer(), attackSkill);
+        this(Health.FULL,new Level(1), attackSkill);
     }
 
     public Health heals(Character wounded, Heal heal) {
@@ -60,7 +54,10 @@ public class Character {
         if (this.equals(target)) {
             throw new InvalidAction("You can't suicide. Are you fag?");
         }
-        Damage realDamage = damageDealer.calculateDamage(this.level,target.level, damage);
+        DamageMultiplier multiplier = target.level.disparityEffect(this.level);
+
+        Damage realDamage = multiplier.apply(damage);
+
         return target.take(realDamage);
     }
 
