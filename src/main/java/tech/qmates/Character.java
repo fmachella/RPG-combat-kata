@@ -77,4 +77,12 @@ public class Character {
     public AttackOutcome attack(Distance distance) {
         return this.attackSkill.tryHit(distance);
     }
+
+    public void join(Faction faction) {
+        faction.subscribe(this);
+    }
+
+    public boolean isHeAllied(Character character) {
+        return false;
+    }
 }

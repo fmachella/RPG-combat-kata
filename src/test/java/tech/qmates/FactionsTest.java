@@ -21,7 +21,7 @@ public class FactionsTest {
     }
 
     @Test
-    void lonewolf_joins_ramas_knights() {
+    void ramas_knights_subscribe_lonewolf() {
         Faction ramas_knights = new Faction(ramas_faction_pool);
         ramas_knights.subscribe(lonewolf);
 
@@ -29,7 +29,7 @@ public class FactionsTest {
     }
 
     @Test
-    void lonewolf_leaves_ramas_knights() {
+    void ramas_knights_strikeOff_lonewolf() {
         ramas_faction_pool.add(lonewolf);
 
         ramas_knights.strikeOff(lonewolf);
