@@ -15,7 +15,7 @@ public class FactionsTest {
 
     @BeforeEach
     void setUp() {
-        lonewolf = new Character();
+        lonewolf = new ComposedCharacter();
         ramas_faction_pool = new HashSet<>();
         ramas_knights = new Faction(ramas_faction_pool);
     }

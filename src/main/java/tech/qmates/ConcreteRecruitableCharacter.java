@@ -1,6 +1,6 @@
 package tech.qmates;
 
-class ConcreteRecruitableCharacter {
+class ConcreteRecruitableCharacter implements RecruitableCharacter {
 
     private final RecruitableCharacter self;
     private final Membership factions;

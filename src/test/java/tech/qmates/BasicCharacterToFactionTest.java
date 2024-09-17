@@ -25,7 +25,7 @@ public class BasicCharacterToFactionTest {
         kaiKnights = new Faction(kaiMemory);
         ramasKnights = new Faction(ramasMemory);
         lonewolfFactionCards = new HashSet<>();
-        lonewolf = new Character(new Membership(lonewolfFactionCards));
+        lonewolf = new ComposedCharacter(new Membership(lonewolfFactionCards));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class BasicCharacterToFactionTest {
     @Test
     void thunder_hawk_is_a_lonewolf_allied() {
         HashSet<Faction> hawkFactionCards = new HashSet<>();
-        RecruitableCharacter ramasMasterThunderHawk = new Character(new Membership(hawkFactionCards));
+        RecruitableCharacter ramasMasterThunderHawk = new ComposedCharacter(new Membership(hawkFactionCards));
         ramasMemory.add(ramasMasterThunderHawk);
         ramasMemory.add(lonewolf);
         lonewolfFactionCards.add(ramasKnights);
@@ -72,7 +72,7 @@ public class BasicCharacterToFactionTest {
 
     @Test
     void black_knight_is_a_lonewolf_foo() {
-        RecruitableCharacter blackNight = new Character();
+        RecruitableCharacter blackNight = new ComposedCharacter();
         ramasMemory.add(lonewolf);
         lonewolfFactionCards.add(ramasKnights);
 
