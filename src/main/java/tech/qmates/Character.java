@@ -8,10 +8,8 @@ import tech.qmates.weapons.Melee;
 import java.util.HashSet;
 
 public class Character implements BasicCharacter, RecruitableCharacter {
-    private final Level level;
-    private final AttackSkill attackSkill;
-    private Health health;
-    private Membership factions;
+    private final ConcreteRecruitableCharacter concreteRecruitableCharacter;
+    private final ConcreteBasicCharacter concreteBasicCharacter;
 
     public Character(Health health) {
         this(health,new Level(1));
@@ -30,16 +28,12 @@ public class Character implements BasicCharacter, RecruitableCharacter {
     }
 
     public Character(Health health, Level level, AttackSkill attackSkill, Membership membership) {
-        this.level = level;
-        this.attackSkill = attackSkill;
-        this.health = health;
-        this.factions = membership;
-        attackSkill.of(this);
+        this.concreteRecruitableCharacter = new ConcreteRecruitableCharacter(membership,this);
+        concreteBasicCharacter = new ConcreteBasicCharacter(health, level, attackSkill);
     }
 
     public Character(Membership membership) {
-        this();
-        this.factions = membership;
+        this(Health.FULL,new Level(1),new Melee(),membership);
     }
 
     public Character(AttackSkill attackSkill) {
@@ -48,7 +42,12 @@ public class Character implements BasicCharacter, RecruitableCharacter {
 
     @Override
     public Health heals(BasicCharacter wounded, Heal heal) {
-        return wounded.take(heal);
+        return concreteBasicCharacter.heals(wounded,heal);
+    }
+
+    @Override
+    public AttackOutcome attack(Distance distance) {
+        return concreteBasicCharacter.attack(distance);
     }
 
     @Override
@@ -56,62 +55,42 @@ public class Character implements BasicCharacter, RecruitableCharacter {
         if (this.equals(target)) {
             throw new InvalidAction("You can't suicide. Are you fag?");
         }
-        DamageMultiplier multiplier = this.level.disparityEffect(target.level());
-        Damage realDamage = multiplier.calculateReal(damage);
-
-        return target.take(realDamage);
+        return concreteBasicCharacter.hit(target,damage);
     }
 
     @Override
     public boolean isDead() {
-        return this.health.equals(Health.ZERO);
+        return concreteBasicCharacter.isDead();
     }
 
     @Override
     public Health take(Damage damage) {
-        Health remaining = this.health.damage(damage);
-        this.health=remaining;
-        if (remaining.isAKillingBlow()){
-            this.health=Health.ZERO;
-        }
-        return this.health;
+        return concreteBasicCharacter.take(damage);
     }
 
     @Override
     public Health take(Heal heal) {
-        if (this.isDead())
-            throw new InvalidAction("You can't heal exploded chickens");
-        if (this.health.equals(Health.FULL)){
-            throw new InvalidAction("You can't heal more! It's full");
-        }
-        this.health= this.health.heal(heal);
-        return this.health;
-    }
-
-    @Override
-    public AttackOutcome attack(Distance distance) {
-        return this.attackSkill.tryHit(distance);
+        return concreteBasicCharacter.take(heal);
     }
 
     @Override
     public void join(Faction faction) {
-        faction.subscribe(this);
-        this.factions.add(faction);
+        concreteRecruitableCharacter.join(faction);
     }
 
     @Override
     public void quit(Faction faction) {
-        this.factions.remove(faction);
-        faction.strikeOff(this);
+        concreteRecruitableCharacter.quit(faction);
     }
 
     @Override
     public boolean isHeAllied(RecruitableCharacter character) {
-        return factions.stream().anyMatch(faction -> faction.isHeAMember(character));
+        return concreteRecruitableCharacter.isHeAllied(character);
     }
 
     @Override
     public Level level() {
-        return this.level;
+        return concreteBasicCharacter.level();
     }
+
 }
