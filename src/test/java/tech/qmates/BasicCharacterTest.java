@@ -13,7 +13,7 @@ public class BasicCharacterTest {
     @Test
     void a_character_hit_another_one_but_still_alive() {
         BasicCharacter attacker = new ComposedCharacter(new Health(100));
-        Character defender = new ComposedCharacter(new Health(100));
+        BasicCharacter defender = new ComposedCharacter(new Health(100));
 
         Health remainingHealth = attacker.hit(defender,new Damage(5));
 
@@ -24,7 +24,7 @@ public class BasicCharacterTest {
     @Test
     void a_character_hit_another_one_twice_but_still_alive() {
         BasicCharacter attacker = new ComposedCharacter(new Health(100));
-        Character defender = new ComposedCharacter(new Health(100));
+        BasicCharacter defender = new ComposedCharacter(new Health(100));
 
                                     attacker.hit(defender,new Damage(5));
         Health remainingHealth =    attacker.hit(defender,new Damage(45));
@@ -36,7 +36,7 @@ public class BasicCharacterTest {
     @Test
     void a_character_kills_another() {
         BasicCharacter attacker = new ComposedCharacter(new Health(100));
-        Character defender = new ComposedCharacter(new Health(20));
+        BasicCharacter defender = new ComposedCharacter(new Health(20));
 
         attacker.hit(defender,new Damage(50));
 
@@ -46,7 +46,7 @@ public class BasicCharacterTest {
     @Test
     void overpower_character_kills_weaker_one() {
         BasicCharacter attacker = new ComposedCharacter(new Health(100),new Level(30));
-        Character victim = new ComposedCharacter(new Health(30),new Level(1));
+        BasicCharacter victim = new ComposedCharacter(new Health(30),new Level(1));
         attacker.hit(victim,new Damage(15));
         assertTrue(victim.isDead());
     }
@@ -54,7 +54,7 @@ public class BasicCharacterTest {
 
     void weak_character_cannot_kill_a_bigger_one() {
         BasicCharacter attacker = new ComposedCharacter(new Health(100),new Level(1));
-        Character rock = new ComposedCharacter(new Health(100),new Level(100));
+        BasicCharacter rock = new ComposedCharacter(new Health(100),new Level(100));
         attacker.hit(rock,new Damage(100));
         assertFalse(rock.isDead());
     }
@@ -103,7 +103,7 @@ public class BasicCharacterTest {
 
     @Test
     void cannot_suicide() {
-        Character suicidal = new ComposedCharacter();
+        BasicCharacter suicidal = new ComposedCharacter();
         Exception exception = assertThrows(InvalidAction.class,() -> suicidal.hit(suicidal,new Damage(2)));
         assertEquals("You can't suicide. Are you fag?", exception.getMessage());
     }
