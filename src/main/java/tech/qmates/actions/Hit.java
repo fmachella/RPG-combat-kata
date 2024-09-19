@@ -1,13 +1,12 @@
 package tech.qmates.actions;
 
-import tech.qmates.BasicCharacter;
-import tech.qmates.Damage;
 import tech.qmates.Character;
+import tech.qmates.Damage;
 
 public class Hit implements AttackOutcome {
-    private final BasicCharacter owner;
+    private final Character owner;
 
-    public Hit(BasicCharacter owner) {
+    public Hit(Character owner) {
         this.owner = owner;
     }
 

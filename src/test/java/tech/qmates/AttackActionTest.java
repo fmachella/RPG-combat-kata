@@ -12,7 +12,7 @@ public class AttackActionTest {
     @Test
     void attacker_hit_and_makes_damage() {
         Mock victimMock = new Mock();
-        BasicCharacter meleeAttacker = new ComposedCharacter(new Melee());
+        Character meleeAttacker = new Character(new Melee());
         Character victim = new SpiedCharacter(victimMock);
 
         AttackAction attackAction = new AttackAction(meleeAttacker,victim);
@@ -26,7 +26,7 @@ public class AttackActionTest {
     @Test
     void attacker_miss_and_no_damage_taken() {
         Mock victimMock = new Mock();
-        BasicCharacter meleeAttacker = new ComposedCharacter(new Melee());
+        Character meleeAttacker = new Character(new Melee());
         Character victim = new SpiedCharacter(victimMock);
 
         AttackAction attackAction = new AttackAction(meleeAttacker,victim);
@@ -36,7 +36,7 @@ public class AttackActionTest {
         assertEquals(0,victimMock.calls());
     }
 
-    private static class SpiedCharacter extends ComposedCharacter {
+    private static class SpiedCharacter extends Character {
         private final Mock victimMock;
 
         public SpiedCharacter(Mock victimMock) {

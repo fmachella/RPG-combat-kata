@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FactionsTest {
 
-    RecruitableCharacter lonewolf;
-    HashSet<RecruitableCharacter> ramas_faction_pool;
+    Character lonewolf;
+    HashSet<Character> ramas_faction_pool;
     Faction ramas_knights;
 
     @BeforeEach
     void setUp() {
-        lonewolf = new ComposedCharacter();
+        lonewolf = new Character();
         ramas_faction_pool = new HashSet<>();
         ramas_knights = new Faction(ramas_faction_pool);
     }

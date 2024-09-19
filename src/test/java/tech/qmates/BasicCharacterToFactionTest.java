@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 //Qui potrebbe nascondersi il concetto di registro che tiene la lista di fazioni e membri e le gestisce lei
 public class BasicCharacterToFactionTest {
 
-    HashSet<RecruitableCharacter> kaiMemory;
+    HashSet<Character> kaiMemory;
     Faction kaiKnights;
-    RecruitableCharacter lonewolf;
-    HashSet<RecruitableCharacter> ramasMemory;
+    Character lonewolf;
+    HashSet<Character> ramasMemory;
     Faction ramasKnights;
     private HashSet<Faction> lonewolfFactionCards;
 
@@ -25,7 +25,7 @@ public class BasicCharacterToFactionTest {
         kaiKnights = new Faction(kaiMemory);
         ramasKnights = new Faction(ramasMemory);
         lonewolfFactionCards = new HashSet<>();
-        lonewolf = new ComposedCharacter(new Membership(lonewolfFactionCards));
+        lonewolf = new Character(new Membership(lonewolfFactionCards));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class BasicCharacterToFactionTest {
     @Test
     void thunder_hawk_is_a_lonewolf_allied() {
         HashSet<Faction> hawkFactionCards = new HashSet<>();
-        RecruitableCharacter ramasMasterThunderHawk = new ComposedCharacter(new Membership(hawkFactionCards));
+        Character ramasMasterThunderHawk = new Character(new Membership(hawkFactionCards));
         ramasMemory.add(ramasMasterThunderHawk);
         ramasMemory.add(lonewolf);
         lonewolfFactionCards.add(ramasKnights);
@@ -72,7 +72,7 @@ public class BasicCharacterToFactionTest {
 
     @Test
     void black_knight_is_a_lonewolf_foo() {
-        RecruitableCharacter blackNight = new ComposedCharacter();
+        Character blackNight = new Character();
         ramasMemory.add(lonewolf);
         lonewolfFactionCards.add(ramasKnights);
 

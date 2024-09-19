@@ -1,16 +1,16 @@
 package tech.qmates;
 
-class ConcreteRecruitableCharacter implements RecruitableCharacter {
+class RecruitableAspect {
 
-    private final RecruitableCharacter self;
+    private final Character self;
     private final Membership factions;
 
-    public ConcreteRecruitableCharacter(Membership factions, RecruitableCharacter recruitableCharacter) {
+    public RecruitableAspect(Membership factions, Character recruitableCharacter) {
         this.factions = factions;
         this.self = recruitableCharacter;
     }
 
-    public boolean isHeAllied(RecruitableCharacter friendOrFoe) {
+    public boolean isHeAllied(Character friendOrFoe) {
         return factions.stream().anyMatch(faction -> faction.isHeAMember(friendOrFoe));
     }
 

@@ -1,14 +1,13 @@
 package tech.qmates.actions;
 
-import tech.qmates.BasicCharacter;
-import tech.qmates.Distance;
 import tech.qmates.Character;
+import tech.qmates.Distance;
 
 public class AttackAction {
-    private final BasicCharacter attacker;
+    private final Character attacker;
     private final Character victim;
 
-    public AttackAction(BasicCharacter attacker, Character victim) {
+    public AttackAction(Character attacker, Character victim) {
         this.attacker = attacker;
         this.victim = victim;
     }
