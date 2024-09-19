@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //Qui potrebbe nascondersi il concetto di registro che tiene la lista di fazioni e membri e le gestisce lei
-public class BasicCharacterToFactionTest {
+public class CharacterWithFactionTest {
 
     HashSet<Character> kaiMemory;
     Faction kaiKnights;

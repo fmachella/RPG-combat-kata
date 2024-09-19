@@ -11,7 +11,7 @@ import tech.qmates.weapons.Ranged;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-public class WeaponsTest {
+public class AttackSkillTest {
     @Test
     void melee_attack_miss() {
         AttackSkill attackSkill = new Melee();
