@@ -1,6 +1,8 @@
 package tech.qmates;
 
+import tech.qmates.actions.AttackAction;
 import tech.qmates.actions.AttackOutcome;
+import tech.qmates.actions.SimpleAttackAction;
 import tech.qmates.exceptions.InvalidAction;
 import tech.qmates.weapons.AttackSkill;
 import tech.qmates.weapons.Melee;
@@ -46,9 +48,10 @@ public class Character {
         this(Health.FULL,new Level(1), attackSkill);
     }
 
-    public AttackOutcome attack(Distance distance) {
-        return this.tryHit(distance);
-    }
+//    public void attack(Character target, Distance distance) {
+//        AttackAction simpleAttackAction = new SimpleAttackAction(this, target);
+//        simpleAttackAction.attack(distance);
+//    }
 
     public AttackOutcome tryHit(Distance distance) {
         return attackSkill.tryHit(distance);
@@ -85,6 +88,12 @@ public class Character {
         return target.take(realDamage);
     }
 
+    private void throwExceptionIfSame(Character target) {
+        if (this.equals(target)) {
+            throw new InvalidAction("You can't suicide. Are you fag?");
+        }
+    }
+
     public Health heals(Character wounded, Heal heal) {
         return wounded.take(heal);
     }
@@ -93,12 +102,6 @@ public class Character {
         return this.level;
     }
 
-
-    private void throwExceptionIfSame(Character target) {
-        if (this.equals(target)) {
-            throw new InvalidAction("You can't suicide. Are you fag?");
-        }
-    }
 
     public boolean isHeAllied(Character friendOrFoe) {
         return factions.stream().anyMatch(faction -> faction.isHeAMember(friendOrFoe));

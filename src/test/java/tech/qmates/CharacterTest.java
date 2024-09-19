@@ -9,7 +9,7 @@ import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BasicCharacterTest {
+public class CharacterTest {
     @Test
     void a_character_hit_another_one_but_still_alive() {
         Character attacker = new Character(new Health(100));
@@ -110,12 +110,12 @@ public class BasicCharacterTest {
 
     @Test
     void character_delegate_to_weapon_the_attack() {
-        final Mock mock = new Mock();
+        final Spy spy = new Spy();
         AttackSkill attackSkill = new AttackSkill() {
             private Character owner;
 
             public AttackOutcome tryHit(Distance distance) {
-                mock.registerCall("tryHit");
+                spy.registerCall("tryHit");
                 return null;
             }
             public void of(Character character) {
@@ -123,10 +123,10 @@ public class BasicCharacterTest {
             }
         };
         Character attacker = new Character(attackSkill);
-        attacker.attack(new Distance(5));
+        attacker.tryHit(new Distance(5));
 
-        assertEquals(1,mock.calls());
-        assertTrue(mock.called("tryHit"));
+        assertEquals(1, spy.calls());
+        assertTrue(spy.called("tryHit"));
     }
 
 }

@@ -8,7 +8,6 @@ import tech.qmates.weapons.AttackSkill;
 import tech.qmates.weapons.Melee;
 import tech.qmates.weapons.Ranged;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 public class AttackSkillTest {

@@ -2,7 +2,7 @@ package tech.qmates;
 
 import java.util.ArrayList;
 
-class Mock {
+class Spy {
 
     private ArrayList<String> calls = new ArrayList<>(5);
 
