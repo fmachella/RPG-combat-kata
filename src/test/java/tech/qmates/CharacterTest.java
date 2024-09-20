@@ -1,11 +1,17 @@
 package tech.qmates;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import tech.qmates.actions.AlliedRestricted;
 import tech.qmates.actions.AttackOutcome;
+import tech.qmates.actions.HealAction;
+import tech.qmates.actions.SimpleHealAction;
 import tech.qmates.exceptions.InvalidAction;
 import tech.qmates.weapons.AttackSkill;
+import tech.qmates.weapons.Melee;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,17 +57,18 @@ public class CharacterTest {
         assertTrue(victim.isDead());
     }
     @Test
-
     void weak_character_cannot_kill_a_bigger_one() {
         Character attacker = new Character(new Health(100),new Level(1));
         Character rock = new Character(new Health(100),new Level(100));
-        attacker.hit(rock,new Damage(100));
+        Health remaining = attacker.hit(rock, new Damage(100));
+
         assertFalse(rock.isDead());
+        assertEquals(new Health(50),remaining);
     }
 
     @Test
-    void healer() {
-        Character healer = new Character();
+    void healer_heal_a_wounded_one() {
+        Character healer = new Character(new SimpleHealAction());
         Character wounded = new Character(new Health(17));
 
         Health result = healer.heals(wounded,new Heal(33));
@@ -70,10 +77,13 @@ public class CharacterTest {
     }
 
     @Test
-    void healer_heals_an_allied() {
-        Membership membership = new Membership(new HashSet<>());
-        Character healer = new Character(membership);
-        Character wounded = new Character(new Health(17));
+    void healer_heals_an_ally() {
+        HashSet<Character> factionMembers = new HashSet<>();
+        Faction axis = new Faction(factionMembers);
+        Membership membership = new Membership(new HashSet<>(Set.of(axis)));
+        Character healer = new Character(Health.FULL,new Level(1),new Melee(),membership);
+        Character wounded = new Character(new Health(17),new Level(1),new Melee(),membership);
+        factionMembers.add(healer);factionMembers.add(wounded);
 
         Health result = healer.heals(wounded,new Heal(33));
 
@@ -82,7 +92,7 @@ public class CharacterTest {
 
     @Test
     void dead_player_can_not_be_healed() {
-        Character healer = new Character();
+        Character healer = new Character(new SimpleHealAction());
         Character dead = new Character(Health.ZERO);
 
         Exception exception = assertThrows(InvalidAction.class, () -> healer.heals(dead,new Heal(33)));
@@ -93,7 +103,7 @@ public class CharacterTest {
 
     @Test
     void cannot_heal_fulfilled_characters() {
-        Character healer = new Character();
+        Character healer = new Character(new SimpleHealAction());
         Character fulfilled = new Character();
 
         Exception exception = assertThrows(InvalidAction.class, () -> healer.heals(fulfilled,new Heal(33)));

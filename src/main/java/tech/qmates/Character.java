@@ -1,8 +1,9 @@
 package tech.qmates;
 
-import tech.qmates.actions.AttackAction;
+import tech.qmates.actions.AlliedRestricted;
 import tech.qmates.actions.AttackOutcome;
-import tech.qmates.actions.SimpleAttackAction;
+import tech.qmates.actions.HealAction;
+import tech.qmates.actions.SimpleHealAction;
 import tech.qmates.exceptions.InvalidAction;
 import tech.qmates.weapons.AttackSkill;
 import tech.qmates.weapons.Melee;
@@ -13,6 +14,7 @@ public class Character {
 
     private final Level level;
     private final AttackSkill attackSkill;
+    private final HealAction healAction;
     private Health health;
     private final Membership factions;
 
@@ -29,23 +31,46 @@ public class Character {
     }
 
     public Character(Health health, Level level, AttackSkill attackSkill) {
-        this(health, level, attackSkill, new Membership(new HashSet<>()));
+        this.factions = new Membership(new HashSet<>());
+        this.health = health;
+        this.level = level;
+        this.attackSkill = attackSkill;
+        attackSkill.of(this);
+        this.healAction = new AlliedRestricted(this,new SimpleHealAction());
     }
 
-    public Character(Health health, Level level, AttackSkill attackSkill, Membership membership) {
+    public Character(Health health,
+                     Level level,
+                     AttackSkill attackSkill,
+                     Membership membership,
+                     HealAction healAction) {
         this.factions = membership;
         this.health = health;
         this.level = level;
         this.attackSkill = attackSkill;
         attackSkill.of(this);
+        this.healAction = healAction;
     }
 
     public Character(Membership membership) {
-        this(Health.FULL,new Level(1),new Melee(),membership);
+        this(Health.FULL,new Level(1),new Melee(),membership, new SimpleHealAction());
+    }
+
+    public Character(HealAction healAction) {
+        this(Health.FULL,new Level(1),new Melee(),new Membership(new HashSet<>()), healAction);
     }
 
     public Character(AttackSkill attackSkill) {
         this(Health.FULL,new Level(1), attackSkill);
+    }
+
+    public Character(Health health, Level level, AttackSkill skill, Membership membership) {
+        this.factions = membership;
+        this.health = health;
+        this.level = level;
+        this.attackSkill = skill;
+        attackSkill.of(this);
+        this.healAction = new AlliedRestricted(this,new SimpleHealAction());
     }
 
 //    public void attack(Character target, Distance distance) {
@@ -60,7 +85,7 @@ public class Character {
     public Health take(Heal heal) {
         if (this.isDead())
             throw new InvalidAction("You can't heal exploded chickens");
-        if (this.health.equals(Health.FULL)) {
+        if (this.health.isFull()) {
             throw new InvalidAction("You can't heal more! It's full");
         }
         this.health = this.health.heal(heal);
@@ -95,7 +120,7 @@ public class Character {
     }
 
     public Health heals(Character wounded, Heal heal) {
-        return wounded.take(heal);
+        return healAction.heal(wounded, heal);
     }
 
     public Level level() {
@@ -116,4 +141,5 @@ public class Character {
         faction.subscribe(this);
         this.factions.add(faction);
     }
+
 }

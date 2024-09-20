@@ -1,9 +1,5 @@
 package tech.qmates;
 
 public record Heal(int heals) {
-//    private final int hitPoints;
-//
-//    public Heal(int hitPoints) {
-//        this.hitPoints = hitPoints;
-//    }
+    public static final Heal ANY = new Heal(Math.toIntExact(Math.round(Math.random() * 100)));
 }

@@ -41,4 +41,8 @@ public class Health {
                 "hitPoints=" + hitPoints +
                 '}';
     }
+
+    boolean isFull() {
+        return equals(FULL);
+    }
 }
