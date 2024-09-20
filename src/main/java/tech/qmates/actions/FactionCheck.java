@@ -2,6 +2,7 @@ package tech.qmates.actions;
 
 import tech.qmates.Character;
 import tech.qmates.Distance;
+import tech.qmates.Health;
 import tech.qmates.exceptions.InvalidAction;
 
 public class FactionCheck implements AttackAction {
@@ -18,9 +19,9 @@ public class FactionCheck implements AttackAction {
     }
 
     @Override
-    public void attack(Distance distance) {
+    public Health attack(Distance distance) {
         if (attacker.isHeAllied(target))
             throw new InvalidAction("You can't attack an ally! Are you idiot!?");
-        delegate.attack(distance);
+        return delegate.attack(distance);
     }
 }

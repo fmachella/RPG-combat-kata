@@ -27,32 +27,34 @@ public class AttackActionTest {
 
     @Test
     void attacker_miss_and_no_damage_taken() {
-        Spy victimSpy = new Spy();
         Character meleeAttacker = new Character(new Melee());
-        Character victim = new SpiedCharacter(victimSpy);
+        Character victim = new Character();
 
         AttackAction attackAction = new SimpleAttackAction(meleeAttacker,victim);
 
-        attackAction.attack(new Distance(7));
+        Health attack = attackAction.attack(new Distance(7));
 
-        assertEquals(0, victimSpy.calls());
+        assertEquals(Health.FULL, attack);
     }
 
     @Test
     void allies_cannot_damages() {
-        Character alliedAttacker = new Character(){
+        Character alliedAttacker = createAlwaysAlliedCharacter();
+        Character anyAlly = new Character();
+        AttackAction attackAction =
+                new FactionCheck(alliedAttacker, anyAlly, new SimpleAttackAction(alliedAttacker,anyAlly));
+
+        Exception exception = assertThrows(InvalidAction.class,() -> attackAction.attack(new Distance(1)));
+        assertEquals("You can't attack an ally! Are you idiot!?", exception.getMessage());
+    }
+
+    private static Character createAlwaysAlliedCharacter() {
+        return new Character() {
             @Override
             public boolean isHeAllied(Character friendOrFoe) {
                 return true;
             }
         };
-        Character anyAlly = new Character();
-        AttackAction attackAction = new FactionCheck(alliedAttacker,
-                anyAlly,
-                new SimpleAttackAction(alliedAttacker,anyAlly));
-
-        Exception exception = assertThrows(InvalidAction.class,() -> attackAction.attack(new Distance(1)));
-        assertEquals("You can't attack an ally! Are you idiot!?", exception.getMessage());
     }
 
     private static class SpiedCharacter extends Character {

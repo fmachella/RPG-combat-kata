@@ -1,7 +1,8 @@
 package tech.qmates.actions;
 
 import tech.qmates.Character;
+import tech.qmates.Health;
 
 public interface AttackOutcome {
-    void apply(Character target);
+    Health damage(Character target);
 }

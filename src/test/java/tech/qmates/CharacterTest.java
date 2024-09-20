@@ -1,10 +1,7 @@
 package tech.qmates;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import tech.qmates.actions.AlliedRestricted;
 import tech.qmates.actions.AttackOutcome;
-import tech.qmates.actions.HealAction;
 import tech.qmates.actions.SimpleHealAction;
 import tech.qmates.exceptions.InvalidAction;
 import tech.qmates.weapons.AttackSkill;
@@ -37,6 +34,21 @@ public class CharacterTest {
 
         assertFalse(defender.isDead());
         assertEquals(new Health(50),remainingHealth);
+    }
+
+    @Test
+    void melee_attack_twice_an_enemy() {
+        Character attacker = new Character(new Health(100));
+        Character defender = new Character(new Health(100));
+
+        Health remainingHealth = attacker.attack(defender, new Distance(1));
+
+        assertEquals(new Health(98),remainingHealth);
+
+        remainingHealth = attacker.attack(defender, new Distance(1));
+        assertEquals(new Health(96),remainingHealth);
+
+        assertFalse(defender.isDead());
     }
 
     @Test

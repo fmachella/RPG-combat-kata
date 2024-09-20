@@ -1,7 +1,8 @@
 package tech.qmates.actions;
 
 import tech.qmates.Distance;
+import tech.qmates.Health;
 
 public interface AttackAction {
-    void attack(Distance distance);
+    Health attack(Distance distance);
 }

@@ -2,6 +2,7 @@ package tech.qmates.actions;
 
 import tech.qmates.Character;
 import tech.qmates.Distance;
+import tech.qmates.Health;
 
 public class SimpleAttackAction implements AttackAction {
     private final Character attacker;
@@ -13,8 +14,8 @@ public class SimpleAttackAction implements AttackAction {
     }
 
     @Override
-    public void attack(Distance distance) {
+    public Health attack(Distance distance) {
         AttackOutcome attack = this.attacker.tryHit(distance);
-        attack.apply(this.victim);
+        return attack.damage(this.victim);
     }
 }

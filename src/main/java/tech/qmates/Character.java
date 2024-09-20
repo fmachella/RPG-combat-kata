@@ -1,9 +1,6 @@
 package tech.qmates;
 
-import tech.qmates.actions.AlliedRestricted;
-import tech.qmates.actions.AttackOutcome;
-import tech.qmates.actions.HealAction;
-import tech.qmates.actions.SimpleHealAction;
+import tech.qmates.actions.*;
 import tech.qmates.exceptions.InvalidAction;
 import tech.qmates.weapons.AttackSkill;
 import tech.qmates.weapons.Melee;
@@ -73,10 +70,10 @@ public class Character {
         this.healAction = new AlliedRestricted(this,new SimpleHealAction());
     }
 
-//    public void attack(Character target, Distance distance) {
-//        AttackAction simpleAttackAction = new SimpleAttackAction(this, target);
-//        simpleAttackAction.attack(distance);
-//    }
+    public Health attack(Character target, Distance distance) {
+        AttackAction simpleAttackAction = new FactionCheck(this,target,new SimpleAttackAction(this, target));
+        return simpleAttackAction.attack(distance);
+    }
 
     public AttackOutcome tryHit(Distance distance) {
         return attackSkill.tryHit(distance);

@@ -1,6 +1,7 @@
 package tech.qmates.weapons;
 
 import tech.qmates.Character;
+import tech.qmates.Damage;
 import tech.qmates.Distance;
 import tech.qmates.actions.AttackOutcome;
 import tech.qmates.actions.Hit;
@@ -14,7 +15,7 @@ public class Ranged implements AttackSkill {
     @Override
     public AttackOutcome tryHit(Distance distance) {
         if (distance.isWithin(MAX_RANGE)){
-            return new Hit(this.owner);
+            return new Hit(this.owner, new Damage(2));
         }
         return new Miss();
     }
