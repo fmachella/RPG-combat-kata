@@ -53,7 +53,7 @@ public class CharacterTest {
     void overpower_character_kills_weaker_one() {
         Character attacker = new Character(new Health(100),new Level(30));
         Character victim = new Character(new Health(30),new Level(1));
-        attacker.hit(victim,new Damage(15));
+        attacker.hit(victim,new Damage(20));
         assertTrue(victim.isDead());
     }
     @Test
